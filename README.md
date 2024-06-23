@@ -55,7 +55,6 @@ yc components update
 # Подключаемся к ВМ через ssh
 ssh yc-user@158.160.54.56
 # Устанавливаем докер
-# Add Docker's official GPG key:
 ```bash
 sudo apt-get update
 sudo apt-get install ca-certificates curl
@@ -76,30 +75,22 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ```bash
 sudo docker ps
 ```
-
 # Устанавливаем Airbyte
-# clone Airbyte from GitHub
 ```bash
 git clone --depth=1 https://github.com/airbytehq/airbyte.git
 ```
-# switch into Airbyte directory
+# Запускаем Airbyte
 ```bash
 cd airbyte
-```
-# start Airbyte
-```bash
 ./run-ab-platform.sh
 ```
-# В вашем браузере перейдите на страницу http://localhost:8000
-# Вас попросят ввести имя пользователя и пароль. По умолчанию это имя пользователя airbyte и пароль password. После развертывания Airbyte на своих серверах обязательно измените их в своем .env файле:
-# Proxy Configuration
-# Set to empty values, e.g. "" to disable basic auth
+# После развертывания Airbyte на своих серверах обязательно измените логин и пароль на в свои .env файле:
 BASIC_AUTH_USERNAME=your_new_username_here
 BASIC_AUTH_PASSWORD=your_new_password_here
 
-# Готово!
+Готово!
 
-3. Установка dagster
+# Установка dagster
 Создаем докерфайл с нужными параметрами
 создаем докер компоус
 дагстер ямл
