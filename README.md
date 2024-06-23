@@ -31,7 +31,7 @@ https://drive.google.com/drive/folders/1VJrJ2PKcXxKt-k4zoJfO5_qFrkNWDM0y?ths=tru
 
 2. Архитектура проекта
    
-![image]()
+![image](https://github.com/petryak-off/otus_dz/blob/main/стек.jpg)
 
 3. Развертыывание инфраструктуры
 
