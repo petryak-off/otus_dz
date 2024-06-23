@@ -24,10 +24,7 @@
 
 ## Что получилось
 
-1. Исходный набор данных “Продажи OZON 2020” размещен на гугл диске. 
-https://drive.google.com/drive/folders/1VJrJ2PKcXxKt-k4zoJfO5_qFrkNWDM0y?ths=true
-
-![image]()
+1. Исходный набор данных “Продажи OZON 2020” размещен на [гугл диске](https://drive.google.com/drive/folders/1VJrJ2PKcXxKt-k4zoJfO5_qFrkNWDM0y?ths=true)
 
 2. Архитектура проекта
    
@@ -39,7 +36,96 @@ https://drive.google.com/drive/folders/1VJrJ2PKcXxKt-k4zoJfO5_qFrkNWDM0y?ths=tru
 * Создание ВМ для airbyte, dagster, dbt. Где airbyte, dagster были развернуты при помощи докера, dbt развернут локально в корень папки дагстера для удосбтва подклюяения моделей к оркестратору. 
 * Отдельная ВМ для BI Superset на базе докера.
 
-7. Код дага трансформации в ODS и DDS загруженных данных из STG, а также структура соответствующего проекта dbt при использовании Cosmos для связки с Airflow
+# Развертывание airbyte-dagster-dbt:
+```bash
+    yc compute instance create \
+    --name airbytedagsterdbt-node \
+    --ssh-key ~/.ssh/id_ed25519.pub \
+    --create-boot-disk image-folder-id=standard-images,image-family=ubuntu-2004-lts,size=100,auto-delete=true \
+    --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
+    --memory 16G \
+    --cores 4 \
+    --zone ru-central1-a \
+    --hostname airbytedagsterdbt-node
+```
+# Обновляем компоненты yc
+```bash
+yc components update
+```
+# Подключаемся к ВМ через ssh
+ssh yc-user@158.160.54.56
+# Устанавливаем докер
+# Add Docker's official GPG key:
+```bash
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+```
+# Add the repository to Apt sources:
+```bash
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+# Проверка установки докера.
+```bash
+sudo docker ps
+```
+
+# Устанавливаем Airbyte
+# clone Airbyte from GitHub
+```bash
+git clone --depth=1 https://github.com/airbytehq/airbyte.git
+```
+# switch into Airbyte directory
+```bash
+cd airbyte
+```
+# start Airbyte
+```bash
+./run-ab-platform.sh
+```
+# В вашем браузере перейдите на страницу http://localhost:8000
+# Вас попросят ввести имя пользователя и пароль. По умолчанию это имя пользователя airbyte и пароль password. После развертывания Airbyte на своих серверах обязательно измените их в своем .env файле:
+# Proxy Configuration
+# Set to empty values, e.g. "" to disable basic auth
+BASIC_AUTH_USERNAME=your_new_username_here
+BASIC_AUTH_PASSWORD=your_new_password_here
+
+# Готово!
+
+3. Установка dagster
+Создаем докерфайл с нужными параметрами
+создаем докер компоус
+дагстер ямл
+и т.д.
+
+# Запускаем дагстер:
+```bash
+cd /home/yc-user/dagster-dbt
+sudo docker compose up
+sudo docker ps
+```
+# Установка dbt локально в корень паки с дагстером
+```bash
+sudo apt update
+sudo apt install python3.11-venv
+python3.11 -m venv dbt-env
+source dbt-env/bin/activate
+alias env_dbt='source dbt-env/bin/activate'
+python3.11 -m pip install dbt-postgres
+cd /home/yc-user/dagster-dbt/dbt/dbt_otus
+dbt debug
+```
+Готово!
+
+
+
 
 ![image](https://github.com/savadevel/OpenDataByModernStack/assets/69199994/dc644e75-022d-4609-8842-17ec9dfa5239)
 
