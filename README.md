@@ -48,13 +48,13 @@
     --zone ru-central1-a \
     --hostname airbytedagsterdbt-node
 ```
-# Обновляем компоненты yc
+Обновляем компоненты yc
 ```bash
 yc components update
 ```
-# Подключаемся к ВМ через ssh
+Подключаемся к ВМ через ssh
 ssh yc-user@xx.xx.xx.xx
-# Устанавливаем докер
+Устанавливаем докер
 ```bash
 sudo apt-get update
 sudo apt-get install ca-certificates curl
@@ -62,7 +62,7 @@ sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 ```
-# Add the repository to Apt sources:
+Add the repository to Apt sources:
 ```bash
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
@@ -71,38 +71,38 @@ echo \
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
-# Проверка установки докера.
+Проверка установки докера.
 ```bash
 sudo docker ps
 ```
-# Устанавливаем Airbyte
+Устанавливаем Airbyte
 ```bash
 git clone --depth=1 https://github.com/airbytehq/airbyte.git
 ```
-# Запускаем Airbyte
+Запускаем Airbyte
 ```bash
 cd airbyte
 ./run-ab-platform.sh
 ```
-# После развертывания Airbyte на своих серверах обязательно измените логин и пароль на свои в .env файле:
+После развертывания Airbyte на своих серверах обязательно измените логин и пароль на свои в .env файле:
 BASIC_AUTH_USERNAME=your_new_username_here
 BASIC_AUTH_PASSWORD=your_new_password_here
 
 Готово!
 
-# Установка dagster
+Установка dagster
 Создаем докерфайл с нужными параметрами
 создаем докер компоус
 дагстер ямл
 и т.д.
 
-# Запускаем дагстер:
+Запускаем дагстер:
 ```bash
 cd /home/yc-user/dagster-dbt
 sudo docker compose up
 sudo docker ps
 ```
-# Установка dbt локально в корень паки с дагстером
+Установка dbt локально в корень паки с дагстером
 ```bash
 sudo apt update
 sudo apt install python3.11-venv
@@ -127,14 +127,14 @@ yc compute instance create \
     --zone ru-central1-a \
     --hostname superset-node
 ```
-# Обновляем компоненты yc
+Обновляем компоненты yc
 ```bash
 yc components update
 ```
-# Подключаемся к ВМ через ssh
+Подключаемся к ВМ через ssh
 ssh yc-user@xx.xx.xx.xx
 
-# Устанавливаем докер
+#Устанавливаем докер
 ```bash
 sudo apt-get update
 sudo apt-get install ca-certificates curl
@@ -142,7 +142,7 @@ sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 ```
-# Add the repository to Apt sources:
+Add the repository to Apt sources:
 ```bash
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
@@ -151,23 +151,23 @@ echo \
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
-# Проверка установки докера.
+Проверка установки докера.
 ```bash
 sudo docker ps
 ```
-# Генерируем ключ
+Генерируем ключ
 ```bash
 openssl rand -base64 42
 ```
-# Запускаем
+Запускаем
 ```bash
 sudo docker run -d -p 8080:8088 -e "SUPERSET_SECRET_KEY=your_secret_key_here" --name superset apache/superset
 ```
-# Проверка
+Проверка
 ```bash
 sudo docker ps
 ```
-# Добавляем админа:
+Добавляем админа:
 ```bash
 sudo docker exec -it superset superset fab create-admin \
           --username admin \
@@ -176,15 +176,15 @@ sudo docker exec -it superset superset fab create-admin \
           --email admin@superset.com \
           --password admin
 ```
-# Инициализируем БД
+Инициализируем БД
 ```bash
 sudo docker exec -it superset superset db upgrade
 ```
-# Загрузка примеров
+Загрузка примеров
 ```bash
 sudo docker exec -it superset superset load_examples
 ```
-#  Инициализируем суперсет
+Инициализируем суперсет
 ```bash
 sudo docker exec -it superset superset init
 ```
