@@ -30,10 +30,10 @@
    
 ![image](https://github.com/petryak-off/otus_dz/blob/main/стек.jpg)
 
-3. Развертыывание инфраструктуры
+3. Развертывание инфраструктуры
 
 * Развертывание БД Postgres через маркетплейс Yandex Cloud
-* Создание ВМ для airbyte, dagster, dbt. Где airbyte, dagster были развернуты при помощи докера, dbt развернут локально в корень папки дагстера для удосбтва подклюяения моделей к оркестратору. 
+* Создание ВМ для airbyte, dagster, dbt. Где airbyte, dagster были развернуты при помощи докера, dbt развернут локально в корень папки дагстера для удосбтва подключения моделей к оркестратору. 
 * Отдельная ВМ для BI Superset на базе докера.
 
 # Развертывание airbyte-dagster-dbt:
@@ -53,7 +53,7 @@
 yc components update
 ```
 # Подключаемся к ВМ через ssh
-ssh yc-user@158.160.54.56
+ssh yc-user@xx.xx.xx.xx
 # Устанавливаем докер
 ```bash
 sudo apt-get update
@@ -84,7 +84,7 @@ git clone --depth=1 https://github.com/airbytehq/airbyte.git
 cd airbyte
 ./run-ab-platform.sh
 ```
-# После развертывания Airbyte на своих серверах обязательно измените логин и пароль на в свои .env файле:
+# После развертывания Airbyte на своих серверах обязательно измените логин и пароль на свои в .env файле:
 BASIC_AUTH_USERNAME=your_new_username_here
 BASIC_AUTH_PASSWORD=your_new_password_here
 
@@ -115,7 +115,80 @@ dbt debug
 ```
 Готово!
 
+# Развертывание BI Superset'а:
+```bash
+yc compute instance create \
+    --name superset-node \
+    --ssh-key ~/.ssh/id_ed25519.pub \
+    --create-boot-disk image-folder-id=standard-images,image-family=ubuntu-2004-lts,size=100,auto-delete=true \
+    --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
+    --memory 16G \
+    --cores 4 \
+    --zone ru-central1-a \
+    --hostname superset-node
+```
+# Обновляем компоненты yc
+```bash
+yc components update
+```
+# Подключаемся к ВМ через ssh
+ssh yc-user@xx.xx.xx.xx
 
+# Устанавливаем докер
+```bash
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+```
+# Add the repository to Apt sources:
+```bash
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+# Проверка установки докера.
+```bash
+sudo docker ps
+```
+# Генерируем ключ
+```bash
+openssl rand -base64 42
+```
+# Запускаем
+```bash
+sudo docker run -d -p 8080:8088 -e "SUPERSET_SECRET_KEY=your_secret_key_here" --name superset apache/superset
+```
+# Проверка
+```bash
+sudo docker ps
+```
+# Добавляем админа:
+```bash
+sudo docker exec -it superset superset fab create-admin \
+          --username admin \
+          --firstname Superset \
+          --lastname Admin \
+          --email admin@superset.com \
+          --password admin
+```
+# Инициализируем БД
+```bash
+sudo docker exec -it superset superset db upgrade
+```
+# Загрузка примеров
+```bash
+sudo docker exec -it superset superset load_examples
+```
+#  Инициализируем суперсет
+```bash
+sudo docker exec -it superset superset init
+```
+Готово!
 
 
 ![image](https://github.com/savadevel/OpenDataByModernStack/assets/69199994/dc644e75-022d-4609-8842-17ec9dfa5239)
