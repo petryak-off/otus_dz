@@ -28,7 +28,7 @@
 
 2. Архитектура проекта
    
-![image](https://github.com/petryak-off/otus_dz/blob/main/стек.jpg)
+![image](https://github.com/petryak-off/otus_dz/blob/main/imeg-1.jpg)
 
 3. Развертывание инфраструктуры
 
