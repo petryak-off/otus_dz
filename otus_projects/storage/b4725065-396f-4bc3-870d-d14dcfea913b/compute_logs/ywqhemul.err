@@ -1,0 +1,43 @@
+[32m2024-06-24 23:57:26 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - 157649 - LOGS_CAPTURED - Started capturing logs in process (pid: 157649).
+[32m2024-06-24 23:57:26 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - 157649 - dbt_my_assets - STEP_START - Started execution of step "dbt_my_assets".
+[32m2024-06-24 23:57:26 +0000[0m - dagster - [34mINFO[0m - __ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - dbt_my_assets - A dbt subsetted execution is being performed. Overriding default dbt selection arguments `['--select', 'fqn:*']` with arguments: `['--select', 'fqn:otus.example.my_first_dbt_model fqn:otus.example.my_second_dbt_model']`
+[32m2024-06-24 23:57:26 +0000[0m - dagster - [34mINFO[0m - __ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - dbt_my_assets - Copying `/home/yc-user/otus_projects/dbt_projects/otus/target/partial_parse.msgpack` to `/home/yc-user/otus_projects/dbt_projects/otus/target/dbt_my_assets-b472506-5cab49b/partial_parse.msgpack` to take advantage of partial parsing.
+[32m2024-06-24 23:57:26 +0000[0m - dagster - [34mINFO[0m - __ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - dbt_my_assets - Running dbt command: `dbt build --select fqn:otus.example.my_first_dbt_model fqn:otus.example.my_second_dbt_model`.
+[32m2024-06-24 23:57:30 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - 157649 - dbt_my_assets - STEP_OUTPUT - Yielded output "model_otus_my_first_dbt_model" of type "Nothing". (Type check passed).
+[32m2024-06-24 23:57:30 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - 157649 - dbt_my_assets - ASSET_MATERIALIZATION - Materialized value my_first_dbt_model.
+[32m2024-06-24 23:57:30 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - 157649 - dbt_my_assets - ASSET_OBSERVATION - ASSET_OBSERVATION for step dbt_my_assets
+[32m2024-06-24 23:57:31 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - 157649 - dbt_my_assets - ASSET_OBSERVATION - ASSET_OBSERVATION for step dbt_my_assets
+[32m2024-06-24 23:57:31 +0000[0m - dagster - [34mINFO[0m - __ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - dbt_my_assets - Finished dbt command: `dbt build --select fqn:otus.example.my_first_dbt_model fqn:otus.example.my_second_dbt_model`.
+[32m2024-06-24 23:57:31 +0000[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - b4725065-396f-4bc3-870d-d14dcfea913b - 157649 - dbt_my_assets - STEP_FAILURE - Execution of step "dbt_my_assets" failed.
+
+dagster_dbt.errors.DagsterDbtCliRuntimeError: The dbt CLI process with command `dbt build --select fqn:otus.example.my_first_dbt_model fqn:otus.example.my_second_dbt_model` failed with exit code 1. Check the stdout in the Dagster compute logs for the full information about the error, or view the dbt debug log: /home/yc-user/otus_projects/dbt_projects/otus/target/dbt_my_assets-b472506-5cab49b/dbt.log.
+
+Errors parsed from dbt logs:
+2 of 6 FAIL 1 not_null_my_first_dbt_model_id ................................... [[31mFAIL 1[0m in 0.18s]
+[31mFailure in test not_null_my_first_dbt_model_id (models/example/schema.yml)[0m
+  Got 1 result, configured to fail if != 0
+
+Stack Trace:
+  File "/home/yc-user/venv/lib/python3.8/site-packages/dagster/_core/execution/plan/execute_plan.py", line 286, in dagster_event_sequence_for_step
+    for step_event in check.generator(step_events):
+  File "/home/yc-user/venv/lib/python3.8/site-packages/dagster/_core/execution/plan/execute_step.py", line 525, in core_dagster_event_sequence_for_step
+    for user_event in _step_output_error_checked_user_event_sequence(
+  File "/home/yc-user/venv/lib/python3.8/site-packages/dagster/_core/execution/plan/execute_step.py", line 202, in _step_output_error_checked_user_event_sequence
+    for user_event in user_event_sequence:
+  File "/home/yc-user/venv/lib/python3.8/site-packages/dagster/_core/execution/plan/execute_step.py", line 100, in _process_asset_results_to_events
+    for user_event in user_event_sequence:
+  File "/home/yc-user/venv/lib/python3.8/site-packages/dagster/_core/execution/plan/compute.py", line 214, in execute_core_compute
+    for step_output in _yield_compute_results(step_context, inputs, compute_fn, compute_context):
+  File "/home/yc-user/venv/lib/python3.8/site-packages/dagster/_core/execution/plan/compute.py", line 183, in _yield_compute_results
+    for event in iterate_with_context(
+  File "/home/yc-user/venv/lib/python3.8/site-packages/dagster/_utils/__init__.py", line 463, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/yc-user/otus_projects/otus_projects/assets/all_dbt_assets.py", line 25, in dbt_my_assets
+    yield from dbt.cli(["build"], context=context).stream()
+  File "/home/yc-user/venv/lib/python3.8/site-packages/dagster_dbt/core/resources_v2.py", line 564, in stream
+    for event in self.stream_raw_events():
+  File "/home/yc-user/venv/lib/python3.8/site-packages/dagster_dbt/core/resources_v2.py", line 624, in stream_raw_events
+    self._raise_on_error()
+  File "/home/yc-user/venv/lib/python3.8/site-packages/dagster_dbt/core/resources_v2.py", line 710, in _raise_on_error
+    raise DagsterDbtCliRuntimeError(
+[0m

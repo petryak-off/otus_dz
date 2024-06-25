@@ -1,0 +1,43 @@
+run_storage:
+  module: dagster_postgres.run_storage
+  class: PostgresRunStorage
+  config:
+    postgres_db:
+      username: petryak
+      password: PPtp268902
+      hostname: rc1b-t6vb2y2hqctmw0j0.mdb.yandexcloud.net
+      db_name: analytics
+      port: 6432
+
+event_log_storage:
+  module: dagster_postgres.event_log
+  class: PostgresEventLogStorage
+  config:
+    postgres_db:
+      username: petryak
+      password: PPtp268902
+      hostname: rc1b-t6vb2y2hqctmw0j0.mdb.yandexcloud.net
+      db_name: analytics
+      port: 6432
+
+schedule_storage:
+  module: dagster_postgres.schedule_storage
+  class: PostgresScheduleStorage
+  config:
+    postgres_db:
+      username: petryak
+      password: PPtp268902
+      hostname: rc1b-t6vb2y2hqctmw0j0.mdb.yandexcloud.net
+      db_name: analytics
+      port: 6432
+
+run_coordinator:
+  module: dagster.core.run_coordinator
+  class: QueuedRunCoordinator
+  config:
+    max_concurrent_runs: 5
+    
+telemetry:
+  enabled: false
+nux:
+  enabled: false

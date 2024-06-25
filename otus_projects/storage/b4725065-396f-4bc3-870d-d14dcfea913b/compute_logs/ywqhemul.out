@@ -1,0 +1,26 @@
+Running with dbt=1.7.11
+Registered adapter: postgres=1.7.11
+Found 3 models, 4 tests, 1 source, 0 exposures, 0 metrics, 650 macros, 1 group, 0 semantic models
+
+Concurrency: 3 threads (target='dev')
+
+1 of 6 START sql table model public.my_first_dbt_model ......................... [RUN]
+1 of 6 OK created sql table model public.my_first_dbt_model .................... [[32mSELECT 2[0m in 0.39s]
+2 of 6 START test not_null_my_first_dbt_model_id ............................... [RUN]
+3 of 6 START test unique_my_first_dbt_model_id ................................. [RUN]
+3 of 6 PASS unique_my_first_dbt_model_id ....................................... [[32mPASS[0m in 0.18s]
+2 of 6 FAIL 1 not_null_my_first_dbt_model_id ................................... [[31mFAIL 1[0m in 0.18s]
+4 of 6 SKIP relation public.my_second_dbt_model ................................ [[33mSKIP[0m]
+5 of 6 SKIP test not_null_my_second_dbt_model_id ............................... [[33mSKIP[0m]
+6 of 6 SKIP test unique_my_second_dbt_model_id ................................. [[33mSKIP[0m]
+
+Finished running 1 table model, 4 tests, 1 view model in 0 hours 0 minutes and 1.09 seconds (1.09s).
+
+[31mCompleted with 1 error and 0 warnings:[0m
+
+[31mFailure in test not_null_my_first_dbt_model_id (models/example/schema.yml)[0m
+  Got 1 result, configured to fail if != 0
+
+  compiled Code at target/dbt_my_assets-b472506-5cab49b/compiled/otus/models/example/schema.yml/not_null_my_first_dbt_model_id.sql
+
+Done. PASS=2 WARN=0 ERROR=1 SKIP=3 TOTAL=6

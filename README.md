@@ -28,7 +28,7 @@
 
 2. Архитектура проекта
    
-![image](https://github.com/petryak-off/otus_dz/blob/main/imeg-1.jpg)
+![image](https://github.com/petryak-off/otus_dz/blob/main/image-1.jpg)
 
 3. Развертывание инфраструктуры
 
@@ -190,20 +190,6 @@ sudo docker exec -it superset superset init
 ```
 Готово!
 
-
-![image](https://github.com/savadevel/OpenDataByModernStack/assets/69199994/dc644e75-022d-4609-8842-17ec9dfa5239)
-
-8. Даги пайплана загрузки открытых данных правительства Москвы
-
-![image](https://github.com/savadevel/OpenDataByModernStack/assets/69199994/b3862521-7422-404c-b227-49e8c2e0eabc)
-
-9. Граф дага трансформации загруженных данных в STG
-
-![image](https://github.com/savadevel/OpenDataByModernStack/assets/69199994/e1ea5dc7-5850-4c74-a88d-245f495c0523)
-
-10. Анализ зависимостей в BI
-
-![image](https://github.com/savadevel/OpenDataByModernStack/assets/69199994/0dd5d432-be95-4229-9281-3acba3865cd9)
 
 # Схема потоков данных
 ![image](https://github.com/savadevel/OpenDataByModernStack/assets/69199994/e0fc8ae7-aac6-4934-bcfc-e96fd1f5c40e)

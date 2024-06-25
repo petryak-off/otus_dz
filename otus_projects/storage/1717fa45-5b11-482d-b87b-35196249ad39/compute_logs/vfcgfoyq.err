@@ -1,0 +1,6 @@
+[32m2024-06-24 23:43:49 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1717fa45-5b11-482d-b87b-35196249ad39 - 149358 - LOGS_CAPTURED - Started capturing logs in process (pid: 149358).
+[32m2024-06-24 23:43:49 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1717fa45-5b11-482d-b87b-35196249ad39 - 149358 - airbyte_sync_b1c22 - STEP_START - Started execution of step "airbyte_sync_b1c22".
+[32m2024-06-24 23:43:50 +0000[0m - dagster - [34mINFO[0m - __ASSET_JOB - 1717fa45-5b11-482d-b87b-35196249ad39 - airbyte_sync_b1c22 - Job 11 initialized for connection_id=b1c22d16-7a40-4a7c-870a-16a0057965d3.
+[32m2024-06-24 23:46:20 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1717fa45-5b11-482d-b87b-35196249ad39 - 149358 - airbyte_sync_b1c22 - STEP_OUTPUT - Yielded output "ozon_sales" of type "Nothing". (Type check passed).
+[32m2024-06-24 23:46:20 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1717fa45-5b11-482d-b87b-35196249ad39 - 149358 - airbyte_sync_b1c22 - ASSET_MATERIALIZATION - Materialized value raw ozon_sales.
+[32m2024-06-24 23:46:21 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1717fa45-5b11-482d-b87b-35196249ad39 - 149358 - airbyte_sync_b1c22 - STEP_SUCCESS - Finished execution of step "airbyte_sync_b1c22" in 2m31s.

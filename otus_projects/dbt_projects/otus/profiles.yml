@@ -1,0 +1,12 @@
+otus:
+  outputs:
+    dev:
+      dbname: analytics
+      host: rc1b-t6vb2y2hqctmw0j0.mdb.yandexcloud.net
+      pass: PPtp268902
+      port: 6432
+      schema: public
+      threads: 3
+      type: postgres
+      user: petryak
+  target: dev

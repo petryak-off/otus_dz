@@ -1,0 +1,7 @@
+groups:
+  - name: marts
+    owner:
+      # 'name' or 'email' is required; additional properties allowed
+      email: report@rt.ru
+      #slack: finance-data
+      #github: finance-data-team
