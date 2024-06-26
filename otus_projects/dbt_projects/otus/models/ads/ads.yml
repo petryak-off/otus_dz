@@ -1,7 +1,7 @@
 groups:
-  - name: marts
+  - name: ads
     owner:
       # 'name' or 'email' is required; additional properties allowed
-      email: report@gmail.com
+      email: report@gmai.com
       #slack: finance-data
       #github: finance-data-team

@@ -12,10 +12,11 @@
 1. Развернуть сервисы в YC
 2. Настроить коннекторы для выгрузки и загрузки данных.
 3. Провести трансформацию данных для BI
-4. «Уложить» все в оркестратор
+4. «Уложить» все в оркестратор dagster
 5. Визуализировать в BI
 
 ## Используемые технологии
+* ГуглДрайв - источник данных
 * Airbyte - сервис для выгрузки и загрузки сырых данных.
 * PostgreSQL – хранилище данных (DWH).
 * Dagster – оркестратор.
@@ -32,11 +33,13 @@
 
 3. Развертывание инфраструктуры
 
-* Развертывание БД Postgres через маркетплейс Yandex Cloud
-* Создание ВМ для airbyte, dagster, dbt. Где airbyte, dagster были развернуты при помощи докера, dbt развернут локально в корень папки дагстера для удосбтва подключения моделей к оркестратору. 
-* Отдельная ВМ для BI Superset на базе докера.
+* БД Postgres развернут через маркетплейс Yandex Cloud.
+* ВМ airbyte-dagster-dbt-node для airbyte, dagster, dbt. Где airbyte развернут при помощи docker, dagster - локально, dbt - локально в корень папки дагстера для удосбтва подключения моделей к оркестратору. 
+* ВМ superset-node для BI Superset - развернут при помощи docker.
 
-# Развертывание airbyte-dagster-dbt:
+# Развертывание ВМ airbyte-dagster-dbt-node:
+
+Пусть к ssh-key указываем свой.
 ```bash
     yc compute instance create \
     --name airbytedagsterdbt-node \
@@ -46,14 +49,16 @@
     --memory 16G \
     --cores 4 \
     --zone ru-central1-a \
-    --hostname airbytedagsterdbt-node
+    --hostname airbyte-dagster-dbt-node
 ```
 Обновляем компоненты yc
 ```bash
 yc components update
 ```
 Подключаемся к ВМ через ssh
+```bash
 ssh yc-user@xx.xx.xx.xx
+```
 Устанавливаем докер
 ```bash
 sudo apt-get update
@@ -62,7 +67,7 @@ sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 ```
-Add the repository to Apt sources:
+Добавдяем в репозиторий Apt источники:
 ```bash
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
@@ -75,44 +80,47 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ```bash
 sudo docker ps
 ```
-Устанавливаем Airbyte
+# Устанавливаем Airbyte
 ```bash
 git clone --depth=1 https://github.com/airbytehq/airbyte.git
 ```
 Запускаем Airbyte
 ```bash
 cd airbyte
-./run-ab-platform.sh
+sudo ./run-ab-platform.sh
 ```
 После развертывания Airbyte на своих серверах обязательно измените логин и пароль на свои в .env файле:
+```bash
 BASIC_AUTH_USERNAME=your_new_username_here
 BASIC_AUTH_PASSWORD=your_new_password_here
-
-Готово!
-
-Установка dagster
-Создаем докерфайл с нужными параметрами
-создаем докер компоус
-дагстер ямл
-и т.д.
-
-Запускаем дагстер:
-```bash
-cd /home/yc-user/dagster-dbt
-sudo docker compose up
-sudo docker ps
 ```
-Установка dbt локально в корень паки с дагстером
+
+# Установка dagster и dbt
+# dbt размещаем локально в корень паки с дагстером. Создаем виртуальную среду:
+
 ```bash
 sudo apt update
 sudo apt install python3.11-venv
 python3.11 -m venv dbt-env
-source dbt-env/bin/activate
-alias env_dbt='source dbt-env/bin/activate'
-python3.11 -m pip install dbt-postgres
-cd /home/yc-user/dagster-dbt/dbt/dbt_otus
+source venv/bin/activate
+alias env_dbt='source venv/bin/activate'
+```
+Устанавливаем все библиотеки из requirements.txt. Некоторые библиотеки не устанавливаются из-за несовместимости с версией питона, их ставим вручную или пропускаем.
+```bash
+python3.11 -m pip install -r /path/to/requirements.txt
+```
+Создаем проект дагстера.
+```bash
+dagster project scaffold --name otus_projects
+```
+Создаем проект dbt.
+```bash
+cd cd /home/yc-user/otus_projects/dbt_projects
+dbt init
 dbt debug
 ```
+Настраиваем airbyte-dagster-dbt-postgres
+
 Готово!
 
 # Развертывание BI Superset'а:

@@ -1,16 +1,23 @@
 -----
-dagster
+# dagster
 
 cd /home/yc-user
-#activate virtual dagster-env
 source venv/bin/activate
 cd /home/yc-user/otus_projects
 bash /home/yc-user/otus_projects/daster_run.sh
-ps -la
+
+# dbt
+
+cd /home/yc-user/otus_projects/dbt_projects/otus
+dbt docs serve --port 5000
+
+# airbyte
+cd /home/yc-user/airbyte
+sudo ./run-ab-platform.sh 
+Авторизация = airbyte / password
 
 -----
 apache/superset
 
-sudo docker run apache/superset
-
-sudo docker run -d -p 8080:8088  apache/superset
+sudo docker start superset 
+Авторизация = admin / admin

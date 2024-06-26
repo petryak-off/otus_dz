@@ -27,7 +27,7 @@ DBT_CONFIG = {"project_dir": DBT_PROJECT_DIR, "profiles_dir": DBT_PROFILES_DIR}
 AIRBYTE_CONNECTION_ID = os.environ.get("AIRBYTE_CONNECTION_ID", "e6b2e408-2654-4f54-beec-dd4d56aeec01")
 
 AIRBYTE_CONFIG = {
-    "host": os.environ.get("AIRBYTE_HOST", "84.201.133.79"),
+    "host": os.environ.get("AIRBYTE_HOST", "158.160.121.23"),
     "port": os.environ.get("AIRBYTE_PORT", "8000"),
     "username": "airbyte",
     "password": "password",

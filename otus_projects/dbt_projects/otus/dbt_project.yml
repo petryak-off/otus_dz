@@ -39,3 +39,8 @@ models:
     marts:
       +materialized: table
       +group: marts
+
+    ads:
+      +materialized: table
+      +group: ads
+
