@@ -120,7 +120,6 @@ dbt init
 dbt debug
 ```
 Настраиваем airbyte-dagster-dbt-postgres
-
 Готово!
 
 # Развертывание BI Superset'а:
