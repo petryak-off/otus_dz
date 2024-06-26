@@ -46,26 +46,53 @@
 
 ![image](https://github.com/petryak-off/otus_dz/blob/main/image-2.jpg)
 
+5. Dagster - http://158.160.121.23:3000
 
-![image](https://github.com/petryak-off/otus_dz/blob/main/image-1.1.png)
+* Удобный инструемент для оркестрации всего в одном месте и визуализации.
+* Конфиг Для того чтобы связать airbyte/dbt - dagster:
+
+```py
+import os
+from pathlib import Path
+from dagster_dbt import DbtCliResource
+DBT_DIRECTORY = Path(__file__).joinpath("..", "..", "dbt_projects/otus").resolve()
+DBT_PROJECT_DIR = 'home/yc-user/otus_projects/dbt_projects/otus'
+DBT_PROFILES_DIR =  'home/yc-user/otus_projects/dbt_projects/otus'
+DBT_CONFIG = {"project_dir": DBT_PROJECT_DIR, "profiles_dir": DBT_PROFILES_DIR}
+#Airbyte configs
+AIRBYTE_CONNECTION_ID = os.environ.get("AIRBYTE_CONNECTION_ID", "e6b2e408-2654-4f54-beec-dd4d56aeec01")
+AIRBYTE_CONFIG = {
+    "host": os.environ.get("AIRBYTE_HOST", "158.160.121.23"),
+    "port": os.environ.get("AIRBYTE_PORT", "8000"),
+    "username": "airbyte",
+    "password": "password",
+    #"password": {"env":"AIRBYTE_PASSWORD"},
+}
+```
+![image](https://github.com/petryak-off/otus_dz/blob/main/image-3.1.png)
+
+
+6.  DBT - http://158.160.121.23:5000
+
+* Повзоляет быстро вносить изменения, генерировать документацию по проекту. Скорощает написание повторяющегося кода за счет джтнжи и макросов.
+
+![image](https://github.com/petryak-off/otus_dz/blob/main/image-4.png)
+
+7. Airbyte - http://158.160.104.146:8080
+
+![image](https://github.com/petryak-off/otus_dz/blob/main/image-5.png)
+
 
 # Выводы и планы по развитию
-1. Выбранный стек позволят построить пайплайн загрузки данных
-2. Cosmos позволяет связать AirFlow c dbt, а это дает сделать оркестрация функционала dbt из "коробки", как, например, создание моделей данных, тестирование и инкрементальную загрузку протестированных данных 
-3. Дальнейшие планы по развитию:
-* вынести в настройку задание наборов загружаемых открытых данных 
-* минимизировать количество операций по настройки созданных контейнеров (запустил "docker compose up" и перешел к анализу данных в Superset) 
-* создание инфраструктуры сделать через Terraform 
-* использовать облачные ресурсы
-* выстроить зависимость дагов загрузки данных
-* документирование проекта 
-
-
-
-
-
-
-
+1. Построенный стек позволяет построить пайпланы загрузки и обработки данных за короткий срок без использования кода. Airbyte хорош, особенно когда есть опыт создания собственных коннекторов. Подходит для любых задач. Есть многое из «коробки».
+2. Dagster может контролировать все. На нашем примере мы можем оркестровать задачи ayrbite и dbt, следить за ходом отработки пайплайнов на графах. Смотреть код, и статистическую информацию. 
+3. Порог вхождения в DBT высок, но как только встаешь на «рельсы» инструмент кажется незаменимым. Легко вносить изменения в проект и быстро их применять к модели данных.
+4. Superset в связке с dbt кажется вполне рабочим инструментом, за счет того, что можно подать на вход готовые витрины под каждый чарт.
+5. В планах:
+* Подключить к стеку данных CH для обработки больших объёмов данных. Postgres использовать как промежуточную БД.
+* Минимизировать количество операций по развертыванию инфраструктуры. Dagster и dbt развернуть через docker. 
+* Внедрить DataVault средствами dbt 
+________________________________________________________________________________________________
 
 # Развертывание ВМ airbyte-dagster-dbt-node:
 
@@ -226,4 +253,3 @@ sudo docker exec -it superset superset load_examples
 sudo docker exec -it superset superset init
 ```
 Готово!
-
