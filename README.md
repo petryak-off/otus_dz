@@ -78,6 +78,9 @@ AIRBYTE_CONFIG = {
 
 ![image](https://github.com/petryak-off/otus_dz/blob/main/image-4.jpg)
 
+![image](https://github.com/petryak-off/otus_dz/blob/main/image-6.png)
+
+
 7. Airbyte - http://158.160.104.146:8080
 
 ![image](https://github.com/petryak-off/otus_dz/blob/main/image-5.jpg)
