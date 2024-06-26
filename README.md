@@ -74,13 +74,13 @@ AIRBYTE_CONFIG = {
 
 6.  DBT - http://158.160.121.23:5000
 
-* Повзоляет быстро вносить изменения, генерировать документацию по проекту. Скорощает написание повторяющегося кода за счет джтнжи и макросов.
+* Повзоляет быстро вносить изменения, генерировать документацию по проекту. Скорощает написание повторяющегося кода за счет джинжи и макросов.
 
-![image](https://github.com/petryak-off/otus_dz/blob/main/image-4.png)
+![image](https://github.com/petryak-off/otus_dz/blob/main/image-4.jpg)
 
 7. Airbyte - http://158.160.104.146:8080
 
-![image](https://github.com/petryak-off/otus_dz/blob/main/image-5.png)
+![image](https://github.com/petryak-off/otus_dz/blob/main/image-5.jpg)
 
 
 # Выводы и планы по развитию
