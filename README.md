@@ -47,7 +47,7 @@
 ![image](https://github.com/petryak-off/otus_dz/blob/main/image-2.jpg)
 
 
-![image](https://github.com/petryak-off/otus_dz/blob/main/image-2.png)
+![image](https://github.com/petryak-off/otus_dz/blob/main/image-1.1.png)
 
 # Выводы и планы по развитию
 1. Выбранный стек позволят построить пайплайн загрузки данных
